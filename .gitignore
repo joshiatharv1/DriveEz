@@ -1,0 +1,24 @@
+# Node.js
+node_modules/
+
+# TypeScript
+*.tsbuildinfo
+*.js.map
+*.d.ts
+
+# React
+build/
+dist/
+*.log
+
+# Visual Studio Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# npm
+*.log
+*.lock
+
+dist

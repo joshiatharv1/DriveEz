@@ -1,0 +1,138 @@
+openapi: 3.1.0
+info:
+  title: DriveEz Car Lender API
+  description: API for managing car listings by a car lender
+  version: 'v1.0'
+servers: 
+  - url: https://localhost:8080
+
+paths:
+  /lender/cars:
+    get:
+      summary: Get a list of cars posted by the car lender.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                cars:
+                  - id: 1
+                    make: Toyota
+                    model: Camry
+                    year: 2020
+                    color: Blue
+                    RegistrationNumber: "MP09MW2008"
+                    Rentalstatus: Available
+                  - id: 2
+                    make: Honda
+                    model: Accord
+                    year: 2022
+                    color: Black
+                    RegistrationNumber: "MP48MW2348"
+                    Rentalstatus: Unavailable
+
+    post:
+      summary: Add a new car listing.
+      requestBody:
+        description: New car details
+        required: true
+        content:
+          application/json:
+            example:
+              make: Ford
+              model: Mustang
+              year: 2021
+              color: White
+              RegistrationNumber: "MA04LVA2934"
+              Rentalstatus: Available
+      responses:
+        '201':
+          description: Car listing added successfully
+          content:
+            application/json:
+              example:
+                message: Car listing added successfully
+                car:
+                  id: 3
+                  make: Ford
+                  model: Mustang
+                  year: 2021
+                  color: White
+                  RegistrationNumber: "MA04LVA2934"
+                  Rentalstatus: Available
+
+  /lender/cars/{carId}:
+    get:
+      summary: Get details of a specific car posted by the car lender.
+      parameters:
+        - name: carId
+          in: path
+          description: ID of the car to retrieve details for
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                id: 1
+                make: Toyota
+                model: Camry
+                year: 2020
+                color: Blue
+                RegistrationNumber: "MP09MW2008"
+                Rentalstatus: Available
+
+    put:
+      summary: Update details of a specific car listing.
+      parameters:
+        - name: carId
+          in: path
+          description: ID of the car to update details for
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Updated car details
+        required: true
+        content:
+          application/json:
+            example:
+              make: Toyota
+              model: Camry
+              year: 2020
+              color: Red
+              RegistrationNumber: "MP09MW2008"
+              Rentalstatus: Unavailable
+      responses:
+        '200':
+          description: Car listing updated successfully
+          content:
+            application/json:
+              example:
+                message: Car listing updated successfully
+                car:
+                  id: 1
+                  make: Toyota
+                  model: Camry
+                  year: 2020
+                  color: Red
+                  RegistrationNumber: "MP09MW2008"
+                  Rentalstatus: Unavailable
+
+    delete:
+      summary: Delete a specific car listing.
+      parameters:
+        - name: carId
+          in: path
+          description: ID of the car to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Car listing deleted successfully

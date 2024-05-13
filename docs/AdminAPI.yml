@@ -1,0 +1,346 @@
+openapi: 3.1.0
+info:
+  title: DriveEz - Authentication API
+  description: API for managing cars, car lenders, and rentals in a car rental system.
+  version: 'v1.0'
+servers:
+  - url: http://localhost:8080
+paths:
+  /admin/cars:
+    get:
+      summary: List all cars in the inventory
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - carId: 1
+                  make: "Toyota"
+                  model: "Camry"
+                  year: 2022
+                  color: "Blue"
+                  rentalStatus: "available"
+                  registrationNo: "MP09UF8172"
+                - carId: 2
+                  make: "Honda"
+                  model: "Civic"
+                  year: 2021
+                  color: "Silver"
+                  rentalStatus: "unavailable"
+                  registrationNo: "MP09UF8173"
+
+  /admin/cars/{carId}:
+    get:
+      summary: Retrieve details of a specific car
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          description: ID of the car to retrieve
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                carId: 1
+                make: "Toyota"
+                model: "Camry"
+                year: 2022
+                color: "Blue"
+                rentalStatus: "available"
+                registrationNo: "MP09UF8172"
+
+    put:
+      summary: Update details of a specific car
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          description: ID of the car to update
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              make: "Toyota"
+              model: "Camry"
+              year: 2022
+              color: "Red"
+              registrationNo: "MP09UF8173"
+      responses:
+        '200':
+          description: Successful update
+          content:
+            application/json:
+              example:
+                message: "Car details updated successfully"
+
+    delete:
+      summary: Remove a car from the inventory
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          description: ID of the car to remove
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Car removed successfully
+
+  /admin/car-lenders:
+    get:
+      summary: List all car lenders
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - lenderId: 101
+                  name: "John Doe"
+                  email: "john@example.com"
+                - lenderId: 102
+                  name: "Jane Doe"
+                  email: "jane@example.com"
+                  
+  /admin/car-lenders/{lenderId}:
+    get:
+      summary: Retrieve details of a specific car lender
+      parameters:
+        - name: lenderId
+          in: path
+          required: true
+          description: ID of the car lender to retrieve
+          schema:
+            type: integer
+            example: 101
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                lenderId: 101
+                name: "John Doe"
+                email: "john@example.com"
+                
+    put:
+      summary: Update details of a specific car lender
+      parameters:
+        - name: lenderId
+          in: path
+          required: true
+          description: ID of the car lender to update
+          schema:
+            type: integer
+            example: 101
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              name: "John Doe"
+              email: "john.doe@example.com"
+      responses:
+        '200':
+          description: Successful update
+          content:
+            application/json:
+              example:
+                message: "Car lender details updated successfully"
+
+    delete:
+      summary: Remove a car lender
+      parameters:
+        - name: lenderId
+          in: path
+          required: true
+          description: ID of the car lender to remove
+          schema:
+            type: integer
+            example: 101
+      responses:
+        '204':
+          description: Car lender removed successfully
+
+  /admin/rentals:
+    get:
+      summary: List all rentals
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - rentalId: 201
+                  customerId: 301
+                  carId: 1
+                  startDate: "2023-01-01"
+                  endDate: "2023-01-01"
+                  totalTimeInHours: "02:00"
+                - rentalId: 202
+                  customerId: 302
+                  carId: 2
+                  startDate: "2023-01-03"
+                  endDate: "2023-01-04"
+                  totalTimeInHours: "24:00"
+
+  /admin/rentals/{rentalId}:
+    get:
+      summary: Retrieve details of a specific rental
+      parameters:
+        - name: rentalId
+          in: path
+          required: true
+          description: ID of the rental to retrieve
+          schema:
+            type: integer
+            example: 201
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                rentalId: 201
+                customerId: 301
+                carId: 1
+                startDate: "2023-01-01"
+                endDate: "2023-01-05"
+                totalTimeInHours: "02:00"
+
+    put:
+      summary: Update details of a specific rental
+      parameters:
+        - name: rentalId
+          in: path
+          required: true
+          description: ID of the rental to update
+          schema:
+            type: integer
+            example: 201
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              startDate: "2023-01-01"
+              endDate: "2023-01-02"
+              totalTimeInHours: "24:00"
+      responses:
+        '200':
+          description: Successful update
+          content:
+            application/json:
+              example:
+                message: "Rental details updated successfully"
+
+    delete:
+      summary: Cancel a rental
+      parameters:
+        - name: rentalId
+          in: path
+          required: true
+          description: ID of the rental to cancel
+          schema:
+            type: integer
+            example: 201
+      responses:
+        '204':
+          description: Rental canceled successfully
+
+# ... Other paths and definitions as needed
+
+  /admin/invoices:
+    get:
+      summary: List all invoices
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - invoiceId: 401
+                  customerId: 301
+                  amount: 100.00
+                  dueDate: "2023-02-01"
+                - invoiceId: 402
+                  customerId: 302
+                  amount: 150.00
+                  dueDate: "2023-02-15"
+
+  /admin/invoices/{invoiceId}:
+    get:
+      summary: Retrieve details of a specific invoice
+      parameters:
+        - name: invoiceId
+          in: path
+          required: true
+          description: ID of the invoice to retrieve
+          schema:
+            type: integer
+            example: 401
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                invoiceId: 401
+                customerId: 301
+                amount: 100.00
+                dueDate: "2023-02-01"
+
+
+    put:
+      summary: Update details of a specific invoice
+      parameters:
+        - name: invoiceId
+          in: path
+          required: true
+          description: ID of the invoice to update
+          schema:
+            type: integer
+            example: 401
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              amount: 120.00
+              dueDate: "2023-02-10"
+      responses:
+        '200':
+          description: Successful update
+          content:
+            application/json:
+              example:
+                message: "Invoice details updated successfully"
+
+
+    delete:
+      summary: Remove an invoice
+      parameters:
+        - name: invoiceId
+          in: path
+          required: true
+          description: ID of the invoice to remove
+          schema:
+            type: integer
+            example: 401
+      responses:
+        '204':
+          description: Invoice removed successfully
+
+
+

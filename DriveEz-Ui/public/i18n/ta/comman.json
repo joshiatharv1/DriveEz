@@ -1,0 +1,10 @@
+{
+  "title": "வரவேற்கிறது",
+  "form.label.username": "பயனர்பெயர்",
+  "form.label.password": "கடவுச்சொல்",
+  "form.label.enteruser": "பயனர்பெயரை உள்ளிடவும்",
+  "form.label.enterpass": "கடவுச்சொல்லை உள்ளிடவும்",
+  "form.label.noaccount": "கணக்கு இல்லை",
+  "form.button.signup": "பதிவு செய்",
+  "button.signin": "உள்நுழை"
+}

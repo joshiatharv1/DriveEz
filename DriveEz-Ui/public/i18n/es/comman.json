@@ -1,0 +1,10 @@
+{
+    "title": "Bienvenido a ",
+    "form.label.username": "nombre de usuario",
+    "form.label.password": "Contraseña",
+    "form.label.enteruser": "Ingrese el nombre de usuario",
+    "form.label.enterpass": "Ingrese la contraseña",
+    "form.label.noaccount": "Sin cuenta",
+    "form.button.signup": "Registrarse",
+    "button.signin": "Iniciar sesión"
+    }

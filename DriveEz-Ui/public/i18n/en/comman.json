@@ -1,0 +1,10 @@
+{
+    "title":"Welcome TO DriveEz",
+    "form.label.username":"username",
+    "form.label.password":"Password",
+    "form.label.enteruser":"Enter Username",
+    "form.label.enterpass":"Enter Password",
+    "form.label.noaccount":"No Account",
+    "form.button.signup":"Sign Up",
+    "button.signin":"SignIn"
+}

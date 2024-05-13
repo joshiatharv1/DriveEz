@@ -1,0 +1,174 @@
+openapi: 3.1.0
+info:
+  title: Car Rental API
+  description: API for managing car rentals for customers
+  version: 1.0.0
+servers:
+  - url: https://localhost:8080
+paths:
+  /cars:
+    get:
+      summary: List all available cars
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                cars:
+                  - id: 1
+                    model: 'Toyota Camry'
+                    make: 'Toyota'
+                    year: 2022
+                    rentalRate: 50.00
+                  - id: 2
+                    model: 'Honda Accord'
+                    make: 'Honda'
+                    year: 2021
+                    rentalRate: 45.00
+
+  /cars/{carId}:
+    get:
+      summary: Retrieve details of a specific car
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          description: ID of the car
+          example: 1
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                id: 1
+                model: 'Toyota Camry'
+                make: 'Toyota'
+                year: 2022
+                color: 'Silver'
+                rentalRate: 50.00
+        '404':
+          description: Car not found
+          content:
+            application/json:
+              example:
+                error:
+                  code: 404
+                  message: Car not found
+    delete:
+      summary: Delete a specific car
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          description: ID of the car
+          example: 1
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Car deleted successfully
+
+  /customers/{customerId}/invoices/generate:
+    post:
+      summary: Generate invoices for customer's rentals
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: ID of the customer
+          example: 123
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Invoices generated successfully
+          content:
+            application/json:
+              example:
+                invoices:
+                  - invoiceId: 1
+                    amount: 200.00
+                    dueDate: '2023-01-14'
+                  - invoiceId: 2
+                    amount: 150.00
+                    dueDate: '2023-02-14'
+
+  /customers/{customerId}/rentals/{rentalId}/extend:
+    put:
+      summary: Extend the rental period of a specific rental
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: ID of the customer
+          example: 123
+          schema:
+            type: integer
+        - name: rentalId
+          in: path
+          required: true
+          description: ID of the rental
+          example: 1
+          schema:
+            type: integer
+      requestBody:
+        description: New rental period details
+        required: true
+        content:
+          application/json:
+            example:
+              rentalEndDate: '2023-01-21'
+      responses:
+        '200':
+          description: Rental period extended successfully
+
+  /customers/{customerId}/rentals/{rentalId}:
+    delete:
+      summary: Delete a specific rental
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: ID of the customer
+          example: 123
+          schema:
+            type: integer
+        - name: rentalId
+          in: path
+          required: true
+          description: ID of the rental
+          example: 1
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Rental deleted successfully
+
+components:
+  schemas:
+    Invoice:
+      type: object
+      properties:
+        invoiceId:
+          type: integer
+          examples:
+            - 1
+        amount:
+          type: number
+          examples:
+            - 200.00
+        dueDate:
+          type: string
+          examples:
+            - '2023-01-14'
+    RentalExtension:
+      type: object
+      properties:
+        rentalEndDate:
+          type: string
+          examples:
+            - '2023-01-21'
